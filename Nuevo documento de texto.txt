@@ -1,0 +1,31 @@
+```document.getElementById('nuevo-post').onsubmit = function (e) {
+  e.preventDefault();
+  const texto = document.querySelector('#nuevo-post input[name="texto"]').value;
+  const imagen = document.querySelector('#nuevo-post input[name="imagen"]').value;
+
+  const post = {
+    texto: texto,
+    imagen: imagen,
+    likes: 0
+  };
+
+  fetch(`${baseURL}/api/posts`, {
+    method: 'post',
+    body: JSON.stringify(post),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => res.json())
+  .then(nuevoPost => {
+    const postHTML = document.createElement('div');
+    postHTML.classList.add('post');
+    postHTML.innerHTML = `
+      <img src="${nuevoPost.imagen}" />
+      <p>${nuevoPost.texto}</p>
+    `;
+
+    const container = document.querySelector('.posts-container');
+    container.insertBefore(postHTML, container.firstChild);
+  })
+}```
