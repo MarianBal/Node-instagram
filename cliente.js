@@ -24,7 +24,7 @@ fetch(dire)
                 <i class="far fa-paper-plane"></i>
             </div>
             <div class="contador">
-                Me gusta: <span id="likes">${e.likes}</span>
+                Me gusta: <span id="likes${e.id}">${e.likes}</span>
             </div>
             
             <div class="comentario">${e.text}</div>
@@ -37,22 +37,34 @@ fetch(dire)
     })
 
     const rellenarCorazon = e =>{
+
+        console.log('id: '+ e)
+
         const corazon = document.getElementById(e)
       
         corazon.classList.toggle('fas')
         corazon.classList.toggle('rojo')
 
+        fetch(`${dire}/${e}/likes`, {
+            method:'put'
+        })
+        .then(res=> res.json())
+        .then(post =>{
+            const numero = document.getElementById(`likes${e}`)
+            numero.innerHTML = post.likes;
+            console.log(e);
+            console.log(post.likes)
+       
+        })
+
     }
+
 
   document.getElementById('nuevo_post').onsubmit = function (e){
     e.preventDefault();
 
     const texto = document.querySelector('#nuevo_post input[name="texto"]').value;
     const imagen = document.querySelector('#nuevo_post input[name="foto"]').value;
-
-
-    console.log(texto)
-    console.log(imagen)
 
     const post= {
         imagen: imagen,

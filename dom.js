@@ -25,9 +25,22 @@ app.post('/api/instagram', function(req, res){
 
     posts.unshift(newPost);
  
-
     res.json(newPost)
 
+})
+
+app.put('/api/instagram/:id/likes', function(req, res){
+    const id= req.params.id;
+
+    for(let i = 0; i<posts.length; i++){
+
+        if(posts[i].id==id){
+
+            posts[i].likes++;
+
+            return res.json(posts[i])
+        }
+    }
 })
 
 app.listen(4000)
