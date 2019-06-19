@@ -40,6 +40,7 @@ fetch(dire)
 
         console.log('id: '+ e)
 
+
         const corazon = document.getElementById(e)
       
         corazon.classList.toggle('fas')
@@ -50,11 +51,9 @@ fetch(dire)
         })
         .then(res=> res.json())
         .then(post =>{
-            const numero = document.getElementById(`likes${e}`)
+            const numero = document.querySelector(`#likes${e}`)
+            console.log('numero '+numero)
             numero.innerHTML = post.likes;
-            console.log(e);
-            console.log(post.likes)
-       
         })
 
     }
@@ -83,6 +82,9 @@ fetch(dire)
     .then(nuevoPost =>{
 
         const postHTML = document.createElement('div');
+        
+    
+
     postHTML.classList.add('caja');
     postHTML.innerHTML = `
     <div class="img">
@@ -95,7 +97,7 @@ fetch(dire)
     <i class="far fa-paper-plane"></i>
 </div>
 <div class="contador">
-    Me gusta: <span id="likes">${nuevoPost.likes}</span>
+    Me gusta: <span id="likes${nuevoPost.id}">${nuevoPost.likes}</span>
 </div>
 
 <div class="comentario">${nuevoPost.text}</div>
@@ -104,5 +106,3 @@ fetch(dire)
     contenedor.insertBefore(postHTML, contenedor.firstChild);
     })
 }
-
-  

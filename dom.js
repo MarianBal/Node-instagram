@@ -23,6 +23,7 @@ app.post('/api/instagram', function(req, res){
     const newPost = req.body;
     newPost.id = nextId++;
 
+
     posts.unshift(newPost);
  
     res.json(newPost)
